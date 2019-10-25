@@ -1,7 +1,7 @@
 name: jest
 on: [push]
 jobs:
-  test:
+  jest:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -9,7 +9,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '11.12.x'
-    - name: yarn install
-      run: yarn install
+    - name: npm install
+      run: npm install
     - name: Run jest test
-      run: yarn test
+      run: npm test
