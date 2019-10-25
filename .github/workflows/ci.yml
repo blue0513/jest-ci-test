@@ -1,20 +1,17 @@
-name: Greet Everyone
-# This workflow is triggered on pushes to the repository.
-on: [push]
-
+name: jest
+on:
+  pull_request:
+    types: [opened, synchronize]
 jobs:
-  build:
-    # Job name is Greeting
-    name: Greeting
-    # This job runs on Linux
+  test:
     runs-on: ubuntu-latest
     steps:
-      # This step uses GitHub's hello-world-javascript-action: https://github.com/actions/hello-world-javascript-action
-      - name: Hello world
-        uses: actions/hello-world-javascript-action@v1
-        with:
-          who-to-greet: 'Mona the Octocat'
-        id: hello
-        # This step prints an output (time) from the previous step's action.
-      - name: Echo the greeting's time
-        run: echo 'The time was ${{ steps.hello.outputs.time }}.'
+    - uses: actions/checkout@v1
+    - name: Setup Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '11.12.x'
+    - name: yarn install
+      run: yarn install
+    - name: Run jest test
+      run: yarn test
